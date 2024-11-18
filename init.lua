@@ -1,5 +1,7 @@
 vim.wo.relativenumber = true 
-vim.opt.clipboard = 'unnamedplus'
+vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
+vim.env.NVIM_TUI_ENABLE_CLIPBOARD = 1
+vim.api.nvim_set_option("clipboard", "unnamedplus")
 vim.opt.number = true
 
 vim.opt.mouse = 'a'
@@ -8,7 +10,6 @@ vim.opt.smartcase = true
 vim.opt.hlsearch = false
 vim.opt.breakindent = true
 
-local opts = {noremap = true, silent = true}
 vim.keymap.set("n", "<S-Tab>", "<<", opts)
 vim.keymap.set("n", "<Tab>", ">>", opts)
 vim.keymap.set("v", "<Tab>", ">gv", opts)
@@ -18,7 +19,7 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy..nvim"
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
@@ -58,14 +59,15 @@ lspstatus.config({
 	indicator_hint = 'H',
 })
 
-local copabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local luasnip = require 'luasnip'
 
 -- LSP
 local servers = {
 	"lua_ls",
-	"tsserver",
+	"ts_ls",
 	"pyright",
+	"rust_analyzer",
 	"gopls",
 	'dockerls',
 	'docker_compose_language_service',
