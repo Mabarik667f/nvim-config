@@ -14,6 +14,11 @@ vim.keymap.set("n", "<S-Tab>", "<<", opts)
 vim.keymap.set("n", "<Tab>", ">>", opts)
 vim.keymap.set("v", "<Tab>", ">gv", opts)
 vim.keymap.set("v", "<S-Tab>", "<gv", opts)
+
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true})
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true})
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true})
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true})
 				
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
