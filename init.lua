@@ -1,3 +1,42 @@
+vim.g.mapleader = " " 
+vim.g.maplocalleader = " "
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup({
+	"ThePrimeagen/vim-be-good",
+	"nvim-lualine/lualine.nvim",
+	"neovim/nvim-lspconfig",
+	"nvim-lua/lsp-status.nvim",
+	"hrsh7th/nvim-cmp",
+	"hrsh7th/cmp-nvim-lsp",
+	"saadparwaiz1/cmp_luasnip",
+	"L3MON4D3/LuaSnip",
+	"folke/tokyonight.nvim",
+	"NeogitOrg/neogit",
+	"nvim-lua/plenary.nvim",
+	"sindrets/diffview.nvim",
+	"nvim-telescope/telescope.nvim",
+	"ibhagwan/fzf-lua",
+	"nvim-tree/nvim-tree.lua",
+	"nvim-tree/nvim-web-devicons",
+	{
+		"folke/which-key.nvim", opts = {}
+	}
+
+})
+
+require('lualine').setup()
+
 vim.wo.relativenumber = true 
 vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
 vim.env.NVIM_TUI_ENABLE_CLIPBOARD = 1
@@ -23,35 +62,6 @@ vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github/folke/lazy.nvim.git",
-		"--branch=stable",
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
-require("lazy").setup({
-	"neovim/nvim-lspconfig",
-	"nvim-lua/lsp-status.nvim",
-	"hrsh7th/nvim-cmp",
-	"hrsh7th/cmp-nvim-lsp",
-	"saadparwaiz1/cmp_luasnip",
-	"L3MON4D3/LuaSnip",
-	"folke/tokyonight.nvim",
-	"NeogitOrg/neogit",
-	"nvim-lua/plenary.nvim",
-	"sindrets/diffview.nvim",
-	"nvim-telescope/telescope.nvim",
-	"ibhagwan/fzf-lua",
-	"nvim-tree/nvim-tree.lua",
-	"nvim-tree/nvim-web-devicons"
-})
 
 local lspconfig = require('lspconfig')
 local lspstatus = require('lsp-status')
@@ -111,9 +121,6 @@ cmp.setup {
 }
 -- Theme
 vim.cmd[[colorscheme tokyonight-storm]]
-
---Git
-
 
 --NvimTree
 local nvimtree = require('nvim-tree')
