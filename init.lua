@@ -1,5 +1,6 @@
-vim.g.mapleader = " " 
+vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -11,6 +12,7 @@ if not vim.loop.fs_stat(lazypath) then
 		lazypath,
 	})
 end
+
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	"ThePrimeagen/vim-be-good",
@@ -29,15 +31,38 @@ require("lazy").setup({
 	"ibhagwan/fzf-lua",
 	"nvim-tree/nvim-tree.lua",
 	"nvim-tree/nvim-web-devicons",
+	"nvimtools/none-ls.nvim",
+	{
+		"windwp/nvim-autopairs",
+		event="InsertEnter",
+		config=true
+	},
 	{
 		"folke/which-key.nvim", opts = {}
-	}
+	}, 
 
 })
 
 require('lualine').setup()
 
-vim.wo.relativenumber = true 
+
+-- Linters 
+local none_ls = require("null-ls")
+
+none_ls.setup({
+	sources = {
+		none_ls.builtins.diagnostics.pylint, -- python
+		none_ls.builtins.diagnostics.golangci_lint, -- golang 
+		none_ls.builtins.diagnostics.proselint, -- text 
+		none_ls.builtins.diagnostics.textlint, -- text & md 
+		none_ls.builtins.diagnostics.selene, -- lua linter
+
+		none_ls.builtins.code_actions.gitsigns, -- git pointer
+	}
+})
+
+-- Flags
+vim.wo.relativenumber = true
 vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
 vim.env.NVIM_TUI_ENABLE_CLIPBOARD = 1
 vim.api.nvim_set_option("clipboard", "unnamedplus")
@@ -58,7 +83,6 @@ vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true})
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true})
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true})
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true})
-				
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -74,6 +98,17 @@ lspstatus.config({
 	indicator_hint = 'H',
 })
 
+lspconfig.lua_ls.setup({
+	settings = {
+	   Lua = {
+		  workspace = { checkThirdParty = false, library = vim.api.nvim_get_runtime_file("", true) },
+		  telemetry = { enable = false },
+		  diagnostics = {
+			 globals = { "vim" },
+		  },
+	   },
+	},
+})
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local luasnip = require 'luasnip'
 
@@ -106,7 +141,7 @@ cmp.setup {
 	sources = {
 		{name = 'nvim_lsp'},
 		{name = "buffer"},
-	},	
+	},
 	mapping = cmp.mapping.preset.insert({
 		['<C-u>'] = cmp.mapping.scroll_docs(-4),
 		['<C-d>'] = cmp.mapping.scroll_docs(4),
@@ -117,7 +152,7 @@ cmp.setup {
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		},
-	}),	
+	}),
 }
 -- Theme
 vim.cmd[[colorscheme tokyonight-storm]]
@@ -127,7 +162,7 @@ local nvimtree = require('nvim-tree')
 nvimtree.setup{
 	git = {
 		enable = true
-	} 
+	}
 }
 vim.api.nvim_set_keymap('n', '<C-Space>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-f>', ':NvimTreeFocus<CR>', { noremap = true, silent = true })
