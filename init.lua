@@ -34,28 +34,34 @@ require("lazy").setup({
 	"nvimtools/none-ls.nvim",
 	{
 		"windwp/nvim-autopairs",
-		event="InsertEnter",
-		config=true
+		event = "InsertEnter",
+		config = true
 	},
 	{
 		"folke/which-key.nvim", opts = {}
-	}, 
+	},
+	{
+		"stevearc/conform.nvim",
+		opts = {}
+	},
 
 })
 
 require('lualine').setup()
 
 
--- Linters 
+-- Linters
 local none_ls = require("null-ls")
 
 none_ls.setup({
 	sources = {
-		none_ls.builtins.diagnostics.pylint, -- python
-		none_ls.builtins.diagnostics.golangci_lint, -- golang 
-		none_ls.builtins.diagnostics.proselint, -- text 
-		none_ls.builtins.diagnostics.textlint, -- text & md 
-		none_ls.builtins.diagnostics.selene, -- lua linter
+		none_ls.builtins.diagnostics.pylint,  -- python
+		none_ls.builtins.diagnostics.golangci_lint, -- golang
+		none_ls.builtins.diagnostics.textlint, -- text & md
+		none_ls.builtins.diagnostics.selene,  -- lua linter
+		none_ls.builtins.diagnostics.sqlfluff.with({
+			extra_args = { "--dialect", "postgres" }
+		}),
 
 		none_ls.builtins.code_actions.gitsigns, -- git pointer
 	}
@@ -79,14 +85,39 @@ vim.keymap.set("n", "<Tab>", ">>", opts)
 vim.keymap.set("v", "<Tab>", ">gv", opts)
 vim.keymap.set("v", "<S-Tab>", "<gv", opts)
 
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true})
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true})
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true})
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true})
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
+-- AutoComplete
+require("conform").setup({
+	format_on_save = {
+		timemout_ms = 500,
+		lsp_format = "fallback"
+	},
+	formatters_by_ft = {
+		lua = { "stylua" },
+		python = { "black", "isort" },
+		rust = { "rustfmt" },
+		go = { "gofmt", "goimports" },
+		javascript = { "prettier" },
+		javascriptreact = { "prettier" },
+		typescript = { "prettier" },
+		typescriptreact = { "prettier" },
+		vue = { "prettier" },
+		css = { "prettier" },
+		html = { "prettier" },
+		json = { "prettier" },
+		markdown = { "prettier" },
+		yaml = { "prettier" }
+	}
+})
+
+-- LSP
 local lspconfig = require('lspconfig')
 local lspstatus = require('lsp-status')
 
@@ -100,19 +131,18 @@ lspstatus.config({
 
 lspconfig.lua_ls.setup({
 	settings = {
-	   Lua = {
-		  workspace = { checkThirdParty = false, library = vim.api.nvim_get_runtime_file("", true) },
-		  telemetry = { enable = false },
-		  diagnostics = {
-			 globals = { "vim" },
-		  },
-	   },
+		Lua = {
+			workspace = { checkThirdParty = false, library = vim.api.nvim_get_runtime_file("", true) },
+			telemetry = { enable = false },
+			diagnostics = {
+				globals = { "vim" },
+			},
+		},
 	},
 })
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local luasnip = require 'luasnip'
 
--- LSP
 local servers = {
 	"lua_ls",
 	"ts_ls",
@@ -139,8 +169,8 @@ cmp.setup {
 		end,
 	},
 	sources = {
-		{name = 'nvim_lsp'},
-		{name = "buffer"},
+		{ name = 'nvim_lsp' },
+		{ name = "buffer" },
 	},
 	mapping = cmp.mapping.preset.insert({
 		['<C-u>'] = cmp.mapping.scroll_docs(-4),
@@ -155,11 +185,11 @@ cmp.setup {
 	}),
 }
 -- Theme
-vim.cmd[[colorscheme tokyonight-storm]]
+vim.cmd [[colorscheme tokyonight-storm]]
 
 --NvimTree
 local nvimtree = require('nvim-tree')
-nvimtree.setup{
+nvimtree.setup {
 	git = {
 		enable = true
 	}
@@ -175,4 +205,4 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 
-require('telescope').setup{}
+require('telescope').setup {}
