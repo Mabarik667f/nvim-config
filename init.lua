@@ -57,7 +57,6 @@ none_ls.setup({
 	sources = {
 		none_ls.builtins.diagnostics.pylint,  -- python
 		none_ls.builtins.diagnostics.golangci_lint, -- golang
-		none_ls.builtins.diagnostics.textlint, -- text & md
 		none_ls.builtins.diagnostics.selene,  -- lua linter
 		none_ls.builtins.diagnostics.sqlfluff.with({
 			extra_args = { "--dialect", "postgres" }
@@ -151,7 +150,8 @@ local servers = {
 	"gopls",
 	'dockerls',
 	'docker_compose_language_service',
-	'vls'
+	'vls',
+	"clangd"
 }
 
 for _, lsp in ipairs(servers) do
