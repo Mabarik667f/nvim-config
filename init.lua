@@ -1,3 +1,7 @@
+require("base/search")
+require("base/tabs")
+require("keys/alias")
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -12,7 +16,6 @@ if not vim.loop.fs_stat(lazypath) then
 		lazypath,
 	})
 end
-
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	"ThePrimeagen/vim-be-good",
@@ -32,6 +35,8 @@ require("lazy").setup({
 	"nvim-tree/nvim-tree.lua",
 	"nvim-tree/nvim-web-devicons",
 	"nvimtools/none-ls.nvim",
+	"windwp/nvim-ts-autotag",
+	"lewis6991/gitsigns.nvim",
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
@@ -44,8 +49,13 @@ require("lazy").setup({
 		"stevearc/conform.nvim",
 		opts = {}
 	},
+	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+		build = 'make'
+	}
 
 })
+
 
 require('lualine').setup()
 
@@ -68,29 +78,14 @@ none_ls.setup({
 
 -- Flags
 vim.wo.relativenumber = true
+vim.opt.number = true
 vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
 vim.env.NVIM_TUI_ENABLE_CLIPBOARD = 1
 vim.api.nvim_set_option("clipboard", "unnamedplus")
-vim.opt.number = true
 
 vim.opt.mouse = 'a'
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.hlsearch = false
-vim.opt.breakindent = true
 
-vim.keymap.set("n", "<S-Tab>", "<<", opts)
-vim.keymap.set("n", "<Tab>", ">>", opts)
-vim.keymap.set("v", "<Tab>", ">gv", opts)
-vim.keymap.set("v", "<S-Tab>", "<gv", opts)
-
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.breakindent = true --wrapped line will continue visually indented
 
 -- AutoComplete
 require("conform").setup({
@@ -134,7 +129,7 @@ lspconfig.lua_ls.setup({
 			workspace = { checkThirdParty = false, library = vim.api.nvim_get_runtime_file("", true) },
 			telemetry = { enable = false },
 			diagnostics = {
-				globals = { "vim" },
+				globals = { 'vim' },
 			},
 		},
 	},
@@ -151,7 +146,8 @@ local servers = {
 	'dockerls',
 	'docker_compose_language_service',
 	'vls',
-	"clangd"
+	"clangd",
+	"tailwindcss",
 }
 
 for _, lsp in ipairs(servers) do
@@ -189,6 +185,9 @@ vim.cmd [[colorscheme tokyonight-storm]]
 
 --NvimTree
 local nvimtree = require('nvim-tree')
+vim.opt.hlsearch = true
+vim.opt.hlsearch = true
+vim.opt.hlsearch = true
 nvimtree.setup {
 	git = {
 		enable = true
@@ -206,3 +205,55 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 
 require('telescope').setup {}
+
+-- Git
+require('gitsigns').setup {
+	signs                        = {
+		add          = { text = '┃' },
+		change       = { text = '┃' },
+		delete       = { text = '_' },
+		topdelete    = { text = '‾' },
+		changedelete = { text = '~' },
+		untracked    = { text = '┆' },
+	},
+	signs_staged                 = {
+		add          = { text = '┃' },
+		change       = { text = '┃' },
+		delete       = { text = '_' },
+		topdelete    = { text = '‾' },
+		changedelete = { text = '~' },
+		untracked    = { text = '┆' },
+	},
+	signs_staged_enable          = true,
+	signcolumn                   = true, -- Toggle with :Gitsigns toggle_signs
+	numhl                        = false, -- Toggle with :Gitsigns toggle_numhl
+	linehl                       = false, -- Toggle with :Gitsigns toggle_linehl
+	word_diff                    = false, -- Toggle with :Gitsigns toggle_word_diff
+	watch_gitdir                 = {
+		follow_files = true
+	},
+	auto_attach                  = true,
+	attach_to_untracked          = false,
+	current_line_blame           = false, -- Toggle with :Gitsigns toggle_current_line_blame
+	current_line_blame_opts      = {
+		virt_text = true,
+		virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+		delay = 1000,
+		ignore_whitespace = false,
+		virt_text_priority = 100,
+		use_focus = true,
+	},
+	current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
+	sign_priority                = 6,
+	update_debounce              = 100,
+	status_formatter             = nil, -- Use default
+	max_file_length              = 40000, -- Disable if file is longer than this (in lines)
+	preview_config               = {
+		-- Options passed to nvim_open_win
+		border = 'single',
+		style = 'minimal',
+		relative = 'cursor',
+		row = 0,
+		col = 1
+	},
+}
