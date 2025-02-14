@@ -1,9 +1,5 @@
-require("base/search")
-require("base/tabs")
+require("core/options")
 require("keys/alias")
-
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -56,7 +52,7 @@ require("lazy").setup({
 
 })
 
-
+-- lualine
 require('lualine').setup()
 
 
@@ -75,17 +71,6 @@ none_ls.setup({
 		none_ls.builtins.code_actions.gitsigns, -- git pointer
 	}
 })
-
--- Flags
-vim.wo.relativenumber = true
-vim.opt.number = true
-vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
-vim.env.NVIM_TUI_ENABLE_CLIPBOARD = 1
-vim.api.nvim_set_option("clipboard", "unnamedplus")
-
-vim.opt.mouse = 'a'
-
-vim.opt.breakindent = true --wrapped line will continue visually indented
 
 -- AutoComplete
 require("conform").setup({
@@ -115,28 +100,6 @@ require("conform").setup({
 local lspconfig = require('lspconfig')
 local lspstatus = require('lsp-status')
 
-lspstatus.config({
-	status_symbol = 'LSP',
-	indicator_errors = 'E',
-	indicator_warnings = 'W',
-	indicator_info = 'I',
-	indicator_hint = 'H',
-})
-
-lspconfig.lua_ls.setup({
-	settings = {
-		Lua = {
-			workspace = { checkThirdParty = false, library = vim.api.nvim_get_runtime_file("", true) },
-			telemetry = { enable = false },
-			diagnostics = {
-				globals = { 'vim' },
-			},
-		},
-	},
-})
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-local luasnip = require 'luasnip'
-
 local servers = {
 	"lua_ls",
 	"ts_ls",
@@ -150,11 +113,39 @@ local servers = {
 	"tailwindcss",
 }
 
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
 		capabilities = capabilities,
 	}
 end
+
+lspstatus.config({
+	status_symbol = 'LSP',
+	indicator_errors = 'E',
+	indicator_warnings = 'W',
+	indicator_info = 'I',
+	indicator_hint = 'H',
+})
+
+lspconfig.lua_ls.setup({
+	settings = {
+		Lua = {
+			workspace = {
+				checkThirdParty = false,
+				library = {
+					vim.env.VIMRUNTIME,
+					--vim.api.nvim_get_runtime_file("", true)
+				}
+			},
+			telemetry = { enable = false },
+			diagnostics = {
+				globals = { 'vim' },
+			},
+		},
+	},
+})
+local luasnip = require 'luasnip'
 -- Cmp
 local cmp = require 'cmp'
 
