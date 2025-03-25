@@ -2,7 +2,6 @@ local lspconfig = require('lspconfig')
 local lspstatus = require('lsp-status')
 
 local servers = {
-	"ts_ls",
 	"pyright",
 	"rust_analyzer",
 	"gopls",
@@ -35,7 +34,6 @@ lspconfig.lua_ls.setup {
 		},
 	},
 }
-
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
 		capabilities = capabilities,

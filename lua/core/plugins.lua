@@ -38,6 +38,11 @@ require("lazy").setup({
 	{ "lewis6991/gitsigns.nvim" },
 	{ "williamboman/mason.nvim" },
 	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {},
+	},
+	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = true

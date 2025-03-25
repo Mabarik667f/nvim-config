@@ -1,6 +1,7 @@
 local none_ls = require("null-ls")
 
 none_ls.setup({
+	debounce = 250,
 	sources = {
 		none_ls.builtins.diagnostics.pylint,  -- python
 		none_ls.builtins.diagnostics.golangci_lint, -- golang
