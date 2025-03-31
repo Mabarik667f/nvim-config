@@ -6,4 +6,22 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 
-require('telescope').setup {}
+require('telescope').setup {
+	defaults = {
+		theme = "ivy",
+	},
+	pickers = {
+		find_files = {
+			theme = "ivy"
+		},
+		live_grep = {
+			theme = "ivy"
+		},
+		buffers = {
+			theme = "ivy"
+		},
+		help_tags = {
+			theme = "ivy"
+		},
+	}
+}
