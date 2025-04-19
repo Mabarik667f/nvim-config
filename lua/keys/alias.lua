@@ -15,6 +15,9 @@ main.vm("<A-k>", ":m '<-2<CR>gv=gv")
 main.nm("<A-j>", ":m .+1<CR>==")
 main.vm("<A-j>", ":m '>+1<CR>gv=gv")
 
+-- rename all vars in file
+vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
+
 -- Formatter --
 
 --- hotkeys ---
