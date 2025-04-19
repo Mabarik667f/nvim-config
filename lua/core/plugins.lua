@@ -16,7 +16,9 @@ require("lazy").setup({
 		"folke/lazydev.nvim",
 		ft = "lua"
 	},
-	{ "hrsh7th/nvim-cmp" },
+	{
+		"hrsh7th/nvim-cmp"
+	},
 	{ "nvim-treesitter/nvim-treesitter" },
 	{ "L3MON4D3/LuaSnip" },
 	{ "ThePrimeagen/vim-be-good" },
