@@ -1,5 +1,9 @@
 local cmp = require 'cmp'
-
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on(
+	'confirm_done',
+	cmp_autopairs.on_confirm_done()
+)
 cmp.setup {
 	snippet = {
 		expand = function(args)
@@ -9,6 +13,10 @@ cmp.setup {
 	sources = {
 		{ name = 'nvim_lsp' },
 		{ name = "buffer" },
+		{ name = "luasnip" },
+		{ name = "path" },
+		{ name = "nvim_lua" },
+		{ name = "calc" },
 	},
 	mapping = cmp.mapping.preset.insert({
 		['<C-u>'] = cmp.mapping.scroll_docs(-4),
