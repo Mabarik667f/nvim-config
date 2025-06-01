@@ -3,6 +3,7 @@ local lspstatus = require('lsp-status')
 
 local servers = {
 	"pyright",
+	"ruff",
 	"rust_analyzer",
 	"gopls",
 	'dockerls',
@@ -12,7 +13,25 @@ local servers = {
 	"tailwindcss",
 }
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = vim.tbl_extend(
+	"keep",
+	lspstatus.capabilities,
+	require('cmp_nvim_lsp').default_capabilities()
+)
+
+lspconfig.pyright.setup {
+	settings = {
+		pyright = {
+			disableOrganizeImports = true,
+		},
+		python = {
+			analysis = {
+				ignore = { "*" }
+			}
+		}
+	}
+}
+
 lspconfig.lua_ls.setup {
 	capabilities = capabilities,
 	settings = {
