@@ -10,6 +10,7 @@ require("nvim-treesitter.configs").setup({
 		"markdown",
 		"python",
 		"rust",
+		"html",
 	},
 	sync_install = false,
 	auto_install = true,
