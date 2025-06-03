@@ -21,8 +21,8 @@ require("conform").setup({
 		html = { "prettier" },
 		json = { "prettier" },
 		markdown = { "prettier" },
-		yaml = { "prettier" }
-	}
+		yaml = { "prettier" },
+	},
 })
 
 --- commands ---

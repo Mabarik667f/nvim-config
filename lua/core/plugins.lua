@@ -11,15 +11,14 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 require("lazy").setup({
 	debug = true,
 	{
 		"folke/lazydev.nvim",
-		ft = "lua"
+		ft = "lua",
 	},
 	{
-		"hrsh7th/nvim-cmp"
+		"hrsh7th/nvim-cmp",
 	},
 	{ "nvim-treesitter/nvim-treesitter" },
 	{ "L3MON4D3/LuaSnip" },
@@ -40,10 +39,10 @@ require("lazy").setup({
 				"isak102/telescope-git-file-history.nvim",
 				dependencies = {
 					"nvim-lua/plenary.nvim",
-					"tpope/vim-fugitive"
-				}
-			}
-		}
+					"tpope/vim-fugitive",
+				},
+			},
+		},
 	},
 	{ "ibhagwan/fzf-lua" },
 	{ "nvim-tree/nvim-tree.lua" },
@@ -60,18 +59,19 @@ require("lazy").setup({
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
-		config = true
+		config = true,
 	},
 	{
-		"folke/which-key.nvim", opts = {}
+		"folke/which-key.nvim",
+		opts = {},
 	},
 	{
 		"stevearc/conform.nvim",
-		opts = {}
+		opts = {},
 	},
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
-		build = 'make'
+		build = "make",
 	},
 	{
 		"folke/trouble.nvim",
@@ -109,6 +109,5 @@ require("lazy").setup({
 				desc = "Quickfix List (Trouble)",
 			},
 		},
-	}
-
+	},
 })

@@ -1,43 +1,39 @@
-local lspconfig = require('lspconfig')
-local lspstatus = require('lsp-status')
+local lspconfig = require("lspconfig")
+local lspstatus = require("lsp-status")
 
 local servers = {
 	"pyright",
 	"ruff",
 	"rust_analyzer",
 	"gopls",
-	'dockerls',
-	'docker_compose_language_service',
-	'vls',
+	"dockerls",
+	"docker_compose_language_service",
+	"vls",
 	"clangd",
 	"tailwindcss",
 }
 
-local capabilities = vim.tbl_extend(
-	"keep",
-	lspstatus.capabilities,
-	require('cmp_nvim_lsp').default_capabilities()
-)
+local capabilities = vim.tbl_extend("keep", lspstatus.capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-lspconfig.pyright.setup {
+lspconfig.pyright.setup({
 	settings = {
 		pyright = {
 			disableOrganizeImports = true,
 		},
 		python = {
 			analysis = {
-				ignore = { "*" }
-			}
-		}
-	}
-}
+				ignore = { "*" },
+			},
+		},
+	},
+})
 
-lspconfig.lua_ls.setup {
+lspconfig.lua_ls.setup({
 	capabilities = capabilities,
 	settings = {
 		Lua = {
 			runtime = {
-				version = "LuaJIT"
+				version = "LuaJIT",
 			},
 			workspace = {
 				library = {
@@ -48,22 +44,21 @@ lspconfig.lua_ls.setup {
 			},
 			telemetry = { enable = false },
 			diagnostics = {
-				globals = { 'vim' },
+				globals = { "vim" },
 			},
 		},
 	},
-}
+})
 for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup {
+	lspconfig[lsp].setup({
 		capabilities = capabilities,
-	}
+	})
 end
 
-
 lspstatus.config({
-	status_symbol = 'LSP',
-	indicator_errors = 'E',
-	indicator_warnings = 'W',
-	indicator_info = 'I',
-	indicator_hint = 'H',
+	status_symbol = "LSP",
+	indicator_errors = "E",
+	indicator_warnings = "W",
+	indicator_info = "I",
+	indicator_hint = "H",
 })

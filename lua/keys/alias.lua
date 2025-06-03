@@ -18,6 +18,11 @@ main.vm("<A-j>", ":m '>+1<CR>gv=gv")
 -- rename all vars in file
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
 
+-- diffview plugin ---
+main.nm("<leader>gh", ":DiffviewFileHistory<CR>", { desc = "Diffview: file history" })
+
+main.nm("<leader>gf", ":DiffviewFileHistory %<CR>", { desc = "Diffview: file history current" })
+
 -- Formatter --
 
 --- hotkeys ---
