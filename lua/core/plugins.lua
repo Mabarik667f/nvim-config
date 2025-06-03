@@ -33,7 +33,18 @@ require("lazy").setup({
 	{ "NeogitOrg/neogit" },
 	{ "nvim-lua/plenary.nvim" },
 	{ "sindrets/diffview.nvim" },
-	{ "nvim-telescope/telescope.nvim" },
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			{
+				"isak102/telescope-git-file-history.nvim",
+				dependencies = {
+					"nvim-lua/plenary.nvim",
+					"tpope/vim-fugitive"
+				}
+			}
+		}
+	},
 	{ "ibhagwan/fzf-lua" },
 	{ "nvim-tree/nvim-tree.lua" },
 	{ "nvim-tree/nvim-web-devicons" },
