@@ -33,6 +33,11 @@ require("lazy").setup({
 	{ "nvim-lua/plenary.nvim" },
 	{ "sindrets/diffview.nvim" },
 	{
+		"scottmckendry/cyberdream.nvim",
+		lazy = false,
+		priority = 1000,
+	},
+	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
 			{
