@@ -6,7 +6,9 @@ local colors = {
 	field = "#ADFF2F",
 	method = "#00BFFF",
 	parameter = "#87CEEB",
-	var = "#F72DEA",
+	var = "#FFFFFF",
+	coroutine = "#03FCCE",
+	conditional = "#7BFC03"
 }
 
 vim.api.nvim_create_autocmd("ColorScheme", {
@@ -22,6 +24,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		vim.api.nvim_set_hl(0, "@field", { fg = colors.field })
 		vim.api.nvim_set_hl(0, "@parameter", { fg = colors.parameter, italic = true })
 		vim.api.nvim_set_hl(0, "@variable", { fg = colors.var })
+		vim.api.nvim_set_hl(0, "@keyword.coroutine", { fg = colors.coroutine, italic = true })
+		vim.api.nvim_set_hl(0, "@keyword.conditional", { fg = colors.conditional, italic = true })
 	end,
 })
 
@@ -39,6 +43,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.api.nvim_set_hl(0, "@field", { fg = colors.field })
 			vim.api.nvim_set_hl(0, "@parameter", { fg = colors.parameter, italic = true })
 			vim.api.nvim_set_hl(0, "@variable", { fg = colors.var })
+			vim.api.nvim_set_hl(0, "@keyword.coroutine", { fg = colors.coroutine, italic = true })
+			vim.api.nvim_set_hl(0, "@keyword.conditional", { fg = colors.conditional, italic = true })
 		end, 100)
 	end,
 })
