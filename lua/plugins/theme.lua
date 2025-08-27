@@ -8,7 +8,7 @@ local colors = {
 	parameter = "#87CEEB",
 	var = "#FFFFFF",
 	coroutine = "#03FCCE",
-	conditional = "#7BFC03"
+	conditional = "#7BFC03",
 }
 
 vim.api.nvim_create_autocmd("ColorScheme", {

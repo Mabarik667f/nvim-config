@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -13,13 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	debug = true,
-	{
-		"folke/lazydev.nvim",
-		ft = "lua",
-	},
-	{
-		"hrsh7th/nvim-cmp",
-	},
+	{ "folke/lazydev.nvim", ft = "lua" },
+	{ "hrsh7th/nvim-cmp" },
 	{ "nvim-treesitter/nvim-treesitter" },
 	{ "L3MON4D3/LuaSnip" },
 	{ "ThePrimeagen/vim-be-good" },
@@ -28,8 +23,8 @@ require("lazy").setup({
 	{ "nvim-lua/lsp-status.nvim" },
 	{ "hrsh7th/cmp-nvim-lsp" },
 	{ "saadparwaiz1/cmp_luasnip" },
-	{ "folke/tokyonight.nvim" },
 	{ "NeogitOrg/neogit" },
+	{ "folke/tokyonight.nvim" },
 	{ "nvim-lua/plenary.nvim" },
 	{ "sindrets/diffview.nvim" },
 	{
@@ -55,7 +50,6 @@ require("lazy").setup({
 	{ "nvimtools/none-ls.nvim" },
 	{ "windwp/nvim-ts-autotag" },
 	{ "lewis6991/gitsigns.nvim" },
-	{ "williamboman/mason.nvim" },
 	{
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },

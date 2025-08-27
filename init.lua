@@ -14,11 +14,10 @@ require("plugins.nvimtree")
 require("plugins.theme")
 require("plugins.formatters")
 require("plugins.treesitter")
-require("plugins.typescript-tools")
 require("plugins.nvim-ts-autotag")
 
 vim.diagnostic.config({ virtual_text = true })
---vim.lsp.set_log_level("debug")
+vim.lsp.set_log_level("debug")
 vim.notify = function(msg, level, opts)
 	vim.api.nvim_echo({ { msg } }, true, {})
 end
