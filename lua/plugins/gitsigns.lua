@@ -63,6 +63,7 @@ if ok then
 		linehl = false, -- Toggle with :Gitsigns toggle_linehl
 		word_diff = false, -- Toggle with :Gitsigns toggle_word_diff
 		watch_gitdir = {
+			interval = 1000,
 			follow_files = true,
 		},
 		auto_attach = true,
@@ -93,3 +94,9 @@ if ok then
 else
 	vim.notify("gitsigns failed to load: " .. gitsignsG, vim.log.levels.ERROR)
 end
+
+vim.api.nvim_create_autocmd({ "FocusGained" }, {
+	callback = function()
+		require("gitsigns").refresh()
+	end,
+})

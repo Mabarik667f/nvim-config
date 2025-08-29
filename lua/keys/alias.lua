@@ -18,6 +18,8 @@ main.vm("<A-j>", ":m '>+1<CR>gv=gv")
 -- rename all vars in file
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
 
+vim.keymap.set("n", "<leader>lr", "<cmd>LspRestart<CR>", { desc = "Restart LSP" })
+
 -- diffview plugin ---
 main.nm("<leader>gh", ":DiffviewFileHistory<CR>", { desc = "Diffview: file history" })
 
