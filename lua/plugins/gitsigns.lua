@@ -66,6 +66,10 @@ if ok then
 			interval = 1000,
 			follow_files = true,
 		},
+		watch_index = {
+			interval = 1000,
+			follow_files = true,
+		},
 		auto_attach = true,
 		attach_to_untracked = false,
 		current_line_blame = true, -- Toggle with :Gitsigns toggle_current_line_blame

@@ -11,7 +11,7 @@ if ok then
 
 		formatters_by_ft = {
 			lua = { "stylua" },
-			python = { "black", "isort" },
+			python = { "black", "isort", "ruff" },
 			rust = { "rustfmt" },
 			go = { "gofmt", "goimports" },
 			javascript = { "prettier" },

@@ -19,6 +19,7 @@ if okCfg then
 			"clangd",
 			"tailwindcss",
 			"ts_ls",
+			"nil_ls",
 		}
 
 		local capabilities =

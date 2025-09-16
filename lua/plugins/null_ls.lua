@@ -22,6 +22,11 @@ none_ls.setup({
 				return vim.fn.executable("stylua") == 1
 			end,
 		}),
+		none_ls.builtins.formatting.prettier.with({
+			condition = function()
+				return vim.fn.executable("prettier") == 1
+			end,
+		}),
 		none_ls.builtins.code_actions.gitsigns,
 	},
 })
