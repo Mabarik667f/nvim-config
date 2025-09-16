@@ -37,3 +37,22 @@ opt.shiftwidth = 4
 ------------------------------
 env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
 env.NVIM_TUI_ENABLE_CLIPBOARD = 1
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"javascript",
+		"typescript",
+		"javascriptreact",
+		"typescriptreact",
+		"html",
+		"css",
+		"markdown",
+		"yaml",
+		"vue",
+	},
+	callback = function()
+		vim.opt_local.tabstop = 2
+		vim.opt_local.softtabstop = 2
+		vim.opt_local.shiftwidth = 2
+	end,
+})
