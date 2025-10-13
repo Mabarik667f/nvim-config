@@ -28,9 +28,10 @@ opt.hlsearch = true -- highlighting findend strings
 ------------------------------
 -- Tabs
 ------------------------------
-opt.tabstop = 4 -- spaces after tab, if softtabstop gt than tabstop
-opt.softtabstop = 4 -- ">>" tab or "<<" tab
-opt.shiftwidth = 4
+opt.tabstop = 2 -- spaces after tab, if softtabstop gt than tabstop
+opt.softtabstop = 2 -- ">>" tab or "<<" tab
+opt.shiftwidth = 2
+opt.expandtab = true
 
 ------------------------------
 -- Other
@@ -54,5 +55,42 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.tabstop = 2
 		vim.opt_local.softtabstop = 2
 		vim.opt_local.shiftwidth = 2
+		opt.expandtab = true
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"python",
+	},
+	callback = function()
+		vim.opt_local.tabstop = 4
+		vim.opt_local.softtabstop = 4
+		vim.opt_local.shiftwidth = 4
+		opt.expandtab = true
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"rust",
+	},
+	callback = function()
+		vim.opt_local.tabstop = 4
+		vim.opt_local.softtabstop = 4
+		vim.opt_local.shiftwidth = 4
+		opt.expandtab = true
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"go",
+	},
+	callback = function()
+		vim.opt_local.tabstop = 8
+		vim.opt_local.softtabstop = 8
+		vim.opt_local.shiftwidth = 8
+		opt.expandtab = false
 	end,
 })
