@@ -18,7 +18,6 @@ none_ls.setup({
     none_ls.builtins.formatting.gofmt,
     none_ls.builtins.formatting.gofumpt,
     none_ls.builtins.formatting.goimports_reviser,
-    none_ls.builtins.formatting.goci,
     none_ls.builtins.formatting.golines,
 
     none_ls.builtins.diagnostics.selene.with({
