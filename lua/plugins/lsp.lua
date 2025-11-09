@@ -1,18 +1,5 @@
 local okcfg, lspconfig = pcall(require, "lspconfig")
 
-local configs = require 'lspconfig/configs'
-if not configs.golangcilsp then
-  configs.golangcilsp = {
-    default_config = {
-      cmd = { 'golangci-lint-langserver' },
-      root_dir = lspconfig.util.root_pattern('.git', 'go.mod'),
-      init_options = {
-        command = { "golangci-lint", "run", "--output.json.path", "stdout", "--show-stats=false", "--issues-exit-code=1" },
-      },
-    }
-  }
-end
-
 if okcfg then
   local okstatus, lspstatus = pcall(require, "lsp-status")
   if okstatus then
@@ -23,64 +10,36 @@ if okcfg then
       indicator_info = "i",
       indicator_hint = "h",
     })
+
+    local capabilities =
+        vim.tbl_extend("keep", lspstatus.capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+    capabilities.textDocument.semanticTokens = {
+      multilineTokenSupport = true,
+    }
+
+    vim.lsp.config("*", {
+      capabilities = capabilities,
+      root_markers = { ".git" },
+    })
+
     local servers = {
       "ruff",
       "rust_analyzer",
-      "gopls",
       "dockerls",
       "docker_compose_language_service",
       "vls",
       "clangd",
       "tailwindcss",
       "ts_ls",
+      "pyright",
+      "gopls",
+      "golangci_lint_ls",
+      "nil_ls",
+      "lua_ls"
     }
 
-    local capabilities =
-        vim.tbl_extend("keep", lspstatus.capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-    lspconfig.golangci_lint_ls.setup {
-      filetypes = { 'go', 'gomod' }
-    }
-
-    lspconfig.nil_ls.setup({
-      settings = {
-        ['nil'] = {
-          formatting = {
-            command = { "nixfmt" }
-          }
-        }
-      }
-    })
-
-    lspconfig.pyright.setup({
-      capabilities = capabilities,
-      settings = {
-        pyright = {
-          disableOrganizeImports = true,
-        },
-        python = {
-          analysis = {
-            ignore = { "*" },
-          },
-        },
-      },
-    })
-
-    lspconfig.lua_ls.setup({
-      capabilities = capabilities,
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim" },
-          },
-        },
-      },
-    })
-    for _, lsp in ipairs(servers) do
-      lspconfig[lsp].setup({
-        capabilities = capabilities,
-      })
-    end
+    vim.lsp.enable(servers)
 
     --	local ok, tsApi = pcall(require, "typescript-tools.api")
     --	if ok then
