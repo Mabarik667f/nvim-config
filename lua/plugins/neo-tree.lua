@@ -1,9 +1,9 @@
-require('neo-tree').setup({
+require("neo-tree").setup({
   close_if_last_window = false,
   filesystem = {
     follow_current_file = { enabled = true },
     filtered_items = {
-      visible = true
+      hide_dotfiles = false,
     },
     window = {
       position = "float",
@@ -17,14 +17,13 @@ require('neo-tree').setup({
             border = "rounded",
             width = 50,
             height = 20,
-          }
+          },
         },
         ["l"] = "focus_preview",
         ["<C-u>"] = { "scroll_preview", config = { direction = 10 } },
         ["<C-d>"] = { "scroll_preview", config = { direction = -10 } },
-      }
-    }
-
+      },
+    },
   },
 })
 
