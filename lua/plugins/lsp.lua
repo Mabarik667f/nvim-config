@@ -36,7 +36,8 @@ if okcfg then
       "gopls",
       "golangci_lint_ls",
       "nil_ls",
-      "lua_ls"
+      "lua_ls",
+      "jsonls",
     }
 
     vim.lsp.enable(servers)
