@@ -20,12 +20,9 @@ require("neo-tree").setup({
           },
         },
         ["l"] = "focus_preview",
-        ["<C-u>"] = { "scroll_preview", config = { direction = 10 } },
-        ["<C-d>"] = { "scroll_preview", config = { direction = -10 } },
       },
     },
   },
 })
 
-vim.api.nvim_set_keymap("n", "<C-Space>", ":Neotree toggle<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-f>", ":Neotree focus<CR>", { noremap = true, silent = true })
