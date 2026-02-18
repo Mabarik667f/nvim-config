@@ -38,6 +38,8 @@ if okcfg then
       "nil_ls",
       "lua_ls",
       "jsonls",
+      "sqruff",
+      "roslyn_ls"
     }
 
     vim.lsp.enable(servers)
