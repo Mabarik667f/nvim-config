@@ -1,5 +1,7 @@
 local main = require("keys/main")
 
+vim.keymap.set("n", "gD", vim.lsp.buf.definition, { silent = true, noremap = true })
+
 -- off highlighting
 main.nm("<Esc>", ":noh<CR>")
 main.nm("<Esc>", ":noh<CR>")
