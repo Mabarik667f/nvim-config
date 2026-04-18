@@ -20,7 +20,6 @@ require("lazy").setup({
   { "ThePrimeagen/vim-be-good" },
   { "nvim-lualine/lualine.nvim" },
   { "neovim/nvim-lspconfig" },
-  { "nvim-lua/lsp-status.nvim" },
   { "hrsh7th/cmp-nvim-lsp" },
   { "saadparwaiz1/cmp_luasnip" },
   { "NeogitOrg/neogit" },
@@ -124,4 +123,5 @@ require("lazy").setup({
       },
     },
   },
+  { 'nvim-mini/mini.comment', version = '*' },
 })

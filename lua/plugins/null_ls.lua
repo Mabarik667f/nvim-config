@@ -9,22 +9,7 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 none_ls.setup({
   debounce = 500,
   sources = {
-    none_ls.builtins.diagnostics.golangci_lint.with({
-      condition = function()
-        return vim.fn.executable("golangci-lint") == 1
-      end,
-    }),
-
-    none_ls.builtins.formatting.gofmt,
-    none_ls.builtins.formatting.gofumpt,
-    none_ls.builtins.formatting.goimports,
-    none_ls.builtins.formatting.golines,
-
-    none_ls.builtins.diagnostics.selene.with({
-      condition = function()
-        return vim.fn.executable("selene") == 1
-      end,
-    }),
+    none_ls.builtins.diagnostics.selene,
     none_ls.builtins.formatting.stylua.with({
       condition = function()
         return vim.fn.executable("stylua") == 1
@@ -42,6 +27,7 @@ none_ls.setup({
     }),
     none_ls.builtins.code_actions.gitsigns,
   },
+  -- check this block later
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
       vim.api.nvim_clear_autocmds({
