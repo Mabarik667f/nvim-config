@@ -6,7 +6,6 @@ require("keys.alias")
 --Plugins
 require("plugins.lsp")
 require("plugins.bufferline")
-require("plugins.null_ls")
 require("plugins.cmp")
 require("plugins.lualine")
 require("plugins.telescope")
@@ -18,7 +17,6 @@ require("plugins.treesitter")
 require("plugins.nvim-ts-autotag")
 
 vim.diagnostic.config({ virtual_text = true })
-vim.lsp.set_log_level("debug")
 vim.notify = function(msg, level, opts)
-  vim.api.nvim_echo({ { msg } }, true, {})
+	vim.api.nvim_echo({ { msg } }, true, {})
 end

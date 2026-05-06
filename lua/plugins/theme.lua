@@ -1,4 +1,3 @@
---vim.cmd([[colorscheme tokyonight-storm]])
 vim.cmd("colorscheme cyberdream")
 
 local colors = {
