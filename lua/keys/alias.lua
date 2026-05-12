@@ -22,12 +22,12 @@ main.vm("<A-j>", ":m '>+1<CR>gv=gv")
 -- rename all vars in file
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
 
-vim.keymap.set("n", "<leader>lr", "<cmd>LspRestart<CR>", { desc = "Restart LSP" })
+vim.keymap.set("n", "<leader>lr", "<cmd>lsp restart<CR>", { desc = "Restart LSP" })
 
 -- diffview plugin ---
-main.nm("<leader>gh", ":DiffviewFileHistory<CR>", { desc = "Diffview: file history" })
+vim.keymap.set("n", "<leader>gh", ":DiffviewFileHistory<CR>", { desc = "Diffview: file history" })
 
-main.nm("<leader>gf", ":DiffviewFileHistory %<CR>", { desc = "Diffview: file history current" })
+vim.keymap.set("n", "<leader>gf", ":DiffviewFileHistory %<CR>", { desc = "Diffview: file history current" })
 
 -- Formatter --
 
@@ -35,8 +35,8 @@ main.nm("<leader>gf", ":DiffviewFileHistory %<CR>", { desc = "Diffview: file his
 
 -- block formatter
 local range_formatting = function()
-  local start_row, _ = unpack(vim.api.nvim_buf_get_mark(0, "<"))
-  local end_row, _ = unpack(vim.api.nvim_buf_get_mark(0, ">"))
+  local start_row, _ = table.unpack(vim.api.nvim_buf_get_mark(0, "<"))
+  local end_row, _ = table.unpack(vim.api.nvim_buf_get_mark(0, ">"))
   vim.lsp.buf.format({
     range = {
       ["start"] = { start_row, 0 },

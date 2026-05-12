@@ -1,120 +1,72 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath,
-  })
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out,                            "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  debug = true,
-  { "folke/lazydev.nvim",             ft = "lua" },
-  { "hrsh7th/nvim-cmp" },
-  { "nvim-treesitter/nvim-treesitter" },
-  { "L3MON4D3/LuaSnip" },
-  { "ThePrimeagen/vim-be-good" },
-  { "nvim-lualine/lualine.nvim" },
-  { "neovim/nvim-lspconfig" },
-  { "hrsh7th/cmp-nvim-lsp" },
-  { "saadparwaiz1/cmp_luasnip" },
-  { "NeogitOrg/neogit" },
-  { "nvim-lua/plenary.nvim" },
-  { "sindrets/diffview.nvim" },
-  { "nvim-pack/nvim-spectre" },
-  {
-    "scottmckendry/cyberdream.nvim",
-    lazy = false,
-    priority = 1000,
+  spec = {
+    { import = "plugins" },
+    { "folke/lazydev.nvim",     ft = "lua" },
+    { "NeogitOrg/neogit" },
+    { "nvim-mini/mini.comment", version = "*" },
+    { "sindrets/diffview.nvim" },
+    { "nvim-pack/nvim-spectre" },
+    {
+      "folke/todo-comments.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+      opts = {}
+    },
+    {
+      "windwp/nvim-autopairs",
+      event = "InsertEnter",
+      config = true,
+    },
+    {
+      "folke/which-key.nvim",
+      opts = {},
+    },
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+    },
+    {
+      "lukas-reineke/indent-blankline.nvim",
+      main = "ibl",
+      opts = {},
+    },
   },
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      {
-        "isak102/telescope-git-file-history.nvim",
-        dependencies = {
-          "nvim-lua/plenary.nvim",
-          "tpope/vim-fugitive",
-        },
+  defaults = {
+    lazy = false,
+    version = false,
+  },
+  checker = {
+    enabled = true,
+    notify = false,
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
       },
     },
   },
-  {
-    "akinsho/bufferline.nvim",
-    version = "*",
-    dependencies = "nvim-tree/nvim-web-devicons",
-    lazy = false,
-  },
-  { "ibhagwan/fzf-lua" },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-tree/nvim-web-devicons",
-    },
-    lazy = false,
-  },
-  { "windwp/nvim-ts-autotag" },
-  { "lewis6991/gitsigns.nvim" },
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    config = true,
-  },
-  {
-    "folke/which-key.nvim",
-    opts = {},
-  },
-  {
-    "stevearc/conform.nvim",
-    opts = {},
-  },
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    build = "make",
-  },
-  {
-    "folke/trouble.nvim",
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
-    cmd = "Trouble",
-    keys = {
-      {
-        "<leader>xx",
-        "<cmd>Trouble diagnostics toggle<cr>",
-        desc = "Diagnostics (Trouble)",
-      },
-      {
-        "<leader>xX",
-        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-        desc = "Buffer Diagnostics (Trouble)",
-      },
-      {
-        "<leader>cs",
-        "<cmd>Trouble symbols toggle focus=false<cr>",
-        desc = "Symbols (Trouble)",
-      },
-      {
-        "<leader>cl",
-        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-        desc = "LSP Definitions / references / ... (Trouble)",
-      },
-      {
-        "<leader>xL",
-        "<cmd>Trouble loclist toggle<cr>",
-        desc = "Location List (Trouble)",
-      },
-      {
-        "<leader>xQ",
-        "<cmd>Trouble qflist toggle<cr>",
-        desc = "Quickfix List (Trouble)",
-      },
-    },
-  },
-  { "nvim-mini/mini.comment", version = "*" },
 })
+
+--require("lazy").setup({
+--  debug = true,
+--})
