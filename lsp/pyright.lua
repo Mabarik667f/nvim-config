@@ -6,7 +6,6 @@ return {
     },
     python = {
       analysis = {
-        ignore = { "*" },
       },
     },
   },

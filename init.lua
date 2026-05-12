@@ -18,5 +18,5 @@ require("plugins.nvim-ts-autotag")
 
 vim.diagnostic.config({ virtual_text = true })
 vim.notify = function(msg, level, opts)
-	vim.api.nvim_echo({ { msg } }, true, {})
+  vim.api.nvim_echo({ { msg } }, true, {})
 end

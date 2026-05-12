@@ -5,6 +5,11 @@ return {
   settings = {
     gopls = {
       buildFlags = { "-tags=integration" },
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
     },
   },
 }
