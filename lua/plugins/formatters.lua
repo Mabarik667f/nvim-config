@@ -1,10 +1,10 @@
 return {
-   {
-     "stevearc/conform.nvim",
-     opts = {},
+  {
+    "stevearc/conform.nvim",
+    opts = {},
 
 
-     config = function ()
+    config = function()
       require("conform").setup({
         format_on_save = {
           timeout_ms = 1000,
@@ -14,7 +14,7 @@ return {
           lua = { "stylua" },
           python = { "black", "isort", "ruff" },
           rust = { "rustfmt" },
-          go = { "gofmt" },
+          go = { "gofmt", "golines", "goimports" },
           javascript = { "prettier" },
           javascriptreact = { "prettier" },
           typescript = { "prettier" },
@@ -50,7 +50,6 @@ return {
       end, {
         desc = "Re-enable autoformat-on-save",
       })
-
-     end
-   },
+    end
+  },
 }
