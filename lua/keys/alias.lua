@@ -10,7 +10,7 @@ vim.keymap.set("n", "<leader>q", function()
   vim.api.nvim_buf_delete(0, {})
 end, { silent = true })
 
-vim.keymap.set("n", "<leader>q!", function()
+vim.keymap.set("n", "<leader>Q", function()
   vim.api.nvim_buf_delete(0, { force = true })
 end, { silent = true })
 
