@@ -28,21 +28,8 @@ return {
 
     config = function()
       local telescope = require("telescope")
-      local actions = require('telescope.actions')
-      local action_state = require('telescope.actions.state')
 
       telescope.setup({
-        defaults = {
-          mappings = {
-            i = {
-              ["<C-s>"] = function(prompt_bufnr)
-                local selection = action_state.get_selected_entry()
-                actions.close(prompt_bufnr)
-                vim.cmd('vsplit ' .. selection.value)
-              end
-            }
-          },
-        },
         extensions = {
           git_file_history = {
             browser_command = nil,

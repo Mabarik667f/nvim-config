@@ -66,7 +66,3 @@ require("lazy").setup({
     },
   },
 })
-
---require("lazy").setup({
---  debug = true,
---})

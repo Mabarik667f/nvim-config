@@ -1,5 +1,5 @@
 return {
-  { 
+  {
     "nvim-lualine/lualine.nvim",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
 
@@ -8,6 +8,13 @@ return {
         options = {
           theme = "auto"
         },
+        sections = {
+          lualine_z = {
+            {
+              require('opencode').statusline,
+            }
+          }
+        }
       })
     end,
   },

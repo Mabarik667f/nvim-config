@@ -2,13 +2,13 @@ return {
   {
     "neovim/nvim-lspconfig",
 
-    event = {"BufReadPre", "BufNewFile"},
+    event = { "BufReadPre", "BufNewFile" },
 
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
     },
 
-    config = function ()
+    config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       capabilities.textDocument = capabilities.textDocument or {}
@@ -45,7 +45,7 @@ return {
         "golangci_lint_ls",
         "nil_ls",
         "lua_ls",
-        "pyright",
+        "basedpyright",
       }
 
       vim.lsp.enable(defaultServers)
@@ -76,8 +76,6 @@ return {
           vim.lsp.buf.format({ async = false })
         end
       })
-
     end
   },
 }
-
