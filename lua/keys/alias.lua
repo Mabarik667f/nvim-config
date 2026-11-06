@@ -6,25 +6,23 @@ vim.keymap.set("n", "gD", vim.lsp.buf.definition, { silent = true, noremap = tru
 main.nm("<Esc>", ":noh<CR>")
 main.nm("<Esc>", ":noh<CR>")
 
-vim.keymap.set("n", "<leader>q", function()
-  vim.api.nvim_buf_delete(0, {})
-end, { silent = true })
+local bufremove = require("mini.bufremove")
 
+-- Delete buffer
+vim.keymap.set("n", "<leader>q", function()
+  bufremove.delete()
+end, { desc = "Delete buffer" })
+
+-- Force delete buffer
 vim.keymap.set("n", "<leader>Q", function()
-  vim.api.nvim_buf_delete(0, { force = true })
-end, { silent = true })
+  bufremove.delete(0, true)
+end, { desc = "Force delete buffer" })
 
 -- movement
 main.nm("<S-Tab>", "<<")
 main.vm("<S-Tab>", "<gv")
 main.nm("<Tab>", ">>")
 main.vm("<Tab>", ">gv")
-
--- autocomplete select option
-main.nm("<A-k>", "<cmd>silent! move .-2<CR>==")
-main.vm("<A-k>", "<cmd>silent! move '<-2<CR>gv=gv")
-main.vm("<A-j>", "<cmd>silent! move '>+1<CR>gv=gv")
-main.nm("<A-j>", "<cmd>silent! move .+1<CR>==")
 
 -- rename all vars in file
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)

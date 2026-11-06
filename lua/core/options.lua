@@ -10,7 +10,13 @@ g.maplocalleader = " "
 opt.mouse = "a"               --mouse enable
 opt.clipboard = "unnamedplus" --shared global clipboard
 opt.fileformats = { "unix", "dos" }
-
+---
+------------------------------
+-- Wildmenu
+------------------------------
+opt.wildmenu = true;
+opt.wildmode = "noselect:lastused,full"
+opt.wildoptions = "pum"
 ------------------------------
 -- UI
 ------------------------------

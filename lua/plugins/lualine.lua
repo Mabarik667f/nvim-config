@@ -8,13 +8,13 @@ return {
         options = {
           theme = "auto"
         },
-        sections = {
-          lualine_z = {
-            {
-              require('opencode').statusline,
-            }
-          }
-        }
+        -- sections = {
+        --   lualine_z = {
+        --     {
+        --       require('opencode').statusline,
+        --     }
+        --   }
+        -- }
       })
     end,
   },
