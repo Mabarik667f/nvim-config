@@ -10,6 +10,7 @@ g.maplocalleader = " "
 opt.mouse = "a"               --mouse enable
 opt.clipboard = "unnamedplus" --shared global clipboard
 opt.fileformats = { "unix", "dos" }
+opt.splitright = true
 ---
 ------------------------------
 -- Wildmenu

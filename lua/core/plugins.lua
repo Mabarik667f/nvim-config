@@ -59,7 +59,7 @@ require("lazy").setup({
       'nvim-mini/mini.move', version = '*', opts = {},
     },
     { 'nvim-mini/mini.bufremove', version = '*', opts = {} },
-    { 'nvim-mini/mini.surround', version = '*', opts = {} },
+    { 'nvim-mini/mini.surround',  version = '*', opts = {} },
   },
   defaults = {
     lazy = false,
